@@ -1,3 +1,43 @@
+<?php
+include '../includes/db_connection.php'; // Incluir archivo de conexión
+
+// Verificar si se ha enviado el formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los datos del formulario
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    // Validar que los campos no estén vacíos
+    if (empty($username) || empty($email) || empty($password)) {
+        echo "Todos los campos son obligatorios.";
+    } else {
+        // Verificar si el usuario ya existe en la base de datos (por email)
+        $sql_check_email = "SELECT * FROM usuarios WHERE email = '$email'";
+        $result = mysqli_query($conn, $sql_check_email);
+        if (mysqli_num_rows($result) > 0) {
+            echo "El correo electrónico ya está registrado.";
+        } else {
+            // Cifrar la contraseña antes de guardarla (usando bcrypt)
+            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
+
+            // Insertar los datos del usuario en la base de datos
+            $sql = "INSERT INTO usuarios (username, password_hash, email) VALUES ('$username', '$passwordHash', '$email')";
+
+            if (mysqli_query($conn, $sql)) {
+                echo "Usuario registrado exitosamente.";
+                // Redirigir a otra página después del registro exitoso, por ejemplo, a la página de login
+                header("Location: login.php");
+                exit();
+            } else {
+                echo "Error al registrar usuario: " . mysqli_error($conn);
+            }
+        }
+    }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,30 +46,26 @@
     <title>Registro</title>
 </head>
 
-<h1> 
-<a href="home.php">Agendamiento de citas</a></h1>
-</header>
-</nav>
 <body>
 
+    <h1> 
+        <a href="home.php">Agendamiento de citas</a>
+    </h1>
 
-    <BR>
-        <p>
+    <p>
         Bienvenido al portal de registro, a continuación por favor ingrese sus datos para continuar con el registro. 
-        </p>
-        <br>
-        
+    </p>
+    
     <section>
-        <form action="#">
-           <input type="text" placeholder="Nombre"><br> <br>
-           <input type="email" placeholder="correo electronico"><br><br>
-           <input type="password" placeholder="ingrese una contraseña"><br> <br>
-           
-           <input type="submit" placeholder="Enviar"><br>
-
+        <!-- El formulario ya se encuentra aquí para que se envíe de nuevo si hay un error -->
+        <form action="register.php" method="POST">
+            <input type="text" name="username" placeholder="Nombre de usuario" required><br><br>
+            <input type="email" name="email" placeholder="Correo electrónico" required><br><br>
+            <input type="password" name="password" placeholder="Ingrese una contraseña" required><br><br>
+            <input type="submit" value="Registrar">
         </form>
     </section>
 
-
     <footer>Pagina destinada para la asignación de citas</footer>
-</body>  
+</body>
+</html>

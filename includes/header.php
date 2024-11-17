@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
     <title>Mi sitio web</title>
 </head>
+
 <body>
     <header>
         <nav>
-            <ul>
-                <li><a href="index.php?page=home">Inicio</a></li>
-                <li><a href="index.php?page=about">Acerca de</a></li>
-                <li><a href="index.php?page=contact">Contacto</a></li>
-            </ul>
+            <a href="./index.php">Inicio</a>
+            <a href="pages/login.php">Ingresar</a>
+            <a href="pages/register.php">Registrarse</a>            
         </nav>
     </header>

@@ -74,3 +74,14 @@ h5{
     text-align: center;
      
 }
+
+header{
+    position: fixed; /* Fija el header */
+    top: 0;          /* Lo coloca en la parte superior */
+    width: 100%;     /* Hace que el header cubra todo el ancho de la pantalla */            
+    text-align: center;
+    z-index: 1000;
+}
+
+
+
