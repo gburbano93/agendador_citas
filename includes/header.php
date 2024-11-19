@@ -1,5 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -10,10 +11,14 @@
 </head>
 
 <body>
-    <header>
-        <nav>
-            <a href="./index.php">Inicio</a>
-            <a href="pages/login.php">Ingresar</a>
-            <a href="pages/register.php">Registrarse</a>            
-        </nav>
-    </header>
+<header>
+    <nav>
+        <a href="./index.php?page=home">Inicio</a>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <a href="./index.php?page=logout">Cerrar sesión</a>
+        <?php else: ?>
+            <a href="./index.php?page=login">Ingresar</a>
+            <a href="./index.php?page=register">Registrarse</a>
+        <?php endif; ?>
+    </nav>
+</header>

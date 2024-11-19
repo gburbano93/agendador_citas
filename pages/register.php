@@ -1,5 +1,5 @@
 <?php
-include '../includes/db_connection.php'; // Incluir archivo de conexión
+
 
 // Verificar si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,11 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="./css/registro.css">
+    
     <title>Registro</title>
 </head>
 
 <body>
-
+    <div>
     <h1> 
         <a href="home.php">Agendamiento de citas</a>
     </h1>
@@ -65,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="submit" value="Registrar">
         </form>
     </section>
-
-    <footer>Pagina destinada para la asignación de citas</footer>
+    </div>    
 </body>
 </html>

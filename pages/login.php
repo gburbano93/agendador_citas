@@ -1,6 +1,12 @@
 <?php
-session_start();
-require_once '../includes/db_connection.php'; // Archivo que contiene la conexión a la base de datos
+
+
+if (isset($_SESSION['user_id'])) {
+    header('Location: index.php'); // Redirige al index si ya está logueado
+    exit;
+}
+
+
 
 // Verifica si el formulario ha sido enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -50,6 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 
+
 <!DOCTYPE html>
 <html>
 
@@ -66,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p style="color: red;"><?php echo $error; ?></p>
         <?php endif; ?>
         <hr>
-        <form action="login.php" method="POST">
+        <form action="./index.php?page=login" method="POST">
             <label for="username">Nombre de usuario</label>
             <input type="text" id="username" name="username" placeholder="Ingresa tu usuario" require/>
             <label for="contraseña">Contraseña</label>
