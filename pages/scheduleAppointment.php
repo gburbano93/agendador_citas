@@ -1,18 +1,38 @@
 <?php
-session_start(); // Inicia la sesión al principio del archivo
 
-// Verificar si el usuario no está logueado
 if (!isset($_SESSION['user_id'])) {
-    // Redirige al usuario al índice o página de login si no está logueado
-    header("Location: index.php");
+    header('Location: ./index.php?page=home'); // Redirige al index si ya está logueado
     exit;
 }
 
-// El resto del código para la página de agendador
+// Obtener las citas de la base de datos
+$sql = "SELECT * FROM citas ORDER BY fecha_hora";
+$result = $conn->query($sql);
 ?>
+    <h1>Citas Médicas Agendadas</h1>
+    <a href="./index.php?page=newAppointment">Agregar Nueva Cita</a>
 
-<div>
-  <h1>Editor de citas medicas</h1>
-  <br>
-  <div1>Has iniciado sesión y aqui va el formulario de las citas agendadas</div1>  
-</div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Especialidad</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($cita = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo date('d/m/Y', strtotime($cita['fecha_hora'])); ?></td>
+                    <td><?php echo date('H:i', strtotime($cita['fecha_hora'])); ?></td>
+                    <td><?php echo htmlspecialchars($cita['especialidad']); ?></td>
+                    <td>
+                        <a href="editar.php?id=<?php echo $cita['id']; ?>">Editar</a>
+                        <a href="eliminar.php?id=<?php echo $cita['id']; ?>" onclick="return confirm('¿Estás seguro de que deseas eliminar esta cita?')">Eliminar</a>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+        </tbody>
+    </table>
+

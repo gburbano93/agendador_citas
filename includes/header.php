@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/menu.css">
-    <title>Mi sitio web</title>
+    <title>Agendador de citas</title>
 </head>
 
 <body>

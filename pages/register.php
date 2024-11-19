@@ -1,4 +1,8 @@
 <?php
+if (isset($_SESSION['user_id'])) {
+    header('Location: index.php'); // Redirige al index si ya está logueado
+    exit;
+}
 
 
 // Verificar si se ha enviado el formulario
@@ -27,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (mysqli_query($conn, $sql)) {
                 echo "Usuario registrado exitosamente.";
                 // Redirigir a otra página después del registro exitoso, por ejemplo, a la página de login
-                header("Location: login.php");
+                header("Location: ./index.php?page=login");
                 exit();
             } else {
                 echo "Error al registrar usuario: " . mysqli_error($conn);
@@ -50,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div>
     <h1> 
-        <a href="home.php">Agendamiento de citas</a>
+        <a href="./index.php">Agendamiento de citas</a>
     </h1>
 
     <p>
@@ -59,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     <section>
         <!-- El formulario ya se encuentra aquí para que se envíe de nuevo si hay un error -->
-        <form action="register.php" method="POST">
+        <form action="./index.php?page=register" method="POST">
             <input type="text" name="username" placeholder="Nombre de usuario" required><br><br>
             <input type="email" name="email" placeholder="Correo electrónico" required><br><br>
             <input type="password" name="password" placeholder="Ingrese una contraseña" required><br><br>
