@@ -7,7 +7,7 @@ $pass = '';       // Contraseña del usuario
 
 // Conexión a la base de datos
 $conn = new mysqli($host, $user, $pass, $db);
-
+$conn->set_charset("utf8mb4");
 // Verifica si hay errores en la conexión
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
