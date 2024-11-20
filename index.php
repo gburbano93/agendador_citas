@@ -4,23 +4,26 @@ require_once 'includes/db_connection.php'; // Archivo que contiene la conexión 
 
 include 'includes/header.php';
 
-if (isset($_SESSION['user_id'])){ 
+if (isset($_SESSION['user_id'])) {
     // Si la sesión está iniciada, verifica el valor de 'page'
     if (isset($_GET['page'])) {
-        $page = $_GET['page'];        
+        $page = $_GET['page'];
     } else {
         $page = 'scheduleAppointment'; // Página por defecto cuando la sesión está iniciada
     }
 
     switch ($page) {
         case 'logout':
-            include 'pages/logout.php'; 
+            include 'pages/logout.php';
             break;
         case 'newAppointment':
-            include 'pages/newAppointment.php'; 
+            include 'pages/newAppointment.php';
             break;
         case 'scheduleAppointment':
-            include 'pages/scheduleAppointment.php'; 
+            include 'pages/scheduleAppointment.php';
+            break;
+        case 'deleteAppointment':
+            include 'pages/deleteAppointment.php';
             break;
         default:
             include 'pages/scheduleAppointment.php'; // Página por defecto cuando no se pasa 'page'
@@ -36,13 +39,13 @@ if (isset($_SESSION['user_id'])){
 
     switch ($page) {
         case 'login':
-            include 'pages/login.php'; 
+            include 'pages/login.php';
             break;
         case 'register':
-            include 'pages/register.php'; 
+            include 'pages/register.php';
             break;
         case 'home':
-            include 'pages/home.php'; 
+            include 'pages/home.php';
             break;
         default:
             // Si no es una de las páginas permitidas, redirige a 'home' o muestra un mensaje de error
@@ -52,4 +55,3 @@ if (isset($_SESSION['user_id'])){
 }
 
 include 'includes/footer.php';
-?>
